@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <form action="ajax/edit/todo.php" method="post">
+      Task:
+      <select name="task">
+        <option value="new">New</option>
+        <option value="modify">Modify</option>
+        <option value="strike">Strike</option>
+        <option value="done">Done</option>
+      </select>
+      <br />
+      Todo: <input type="text" name="todo"/>
+      <br />
+      Todo Id: <input type="text" name="todo_id"/>
+      <br />
+      <input type="submit" value="Perform Task"/><input type="reset" value="Reset"/>
+    </form>
+  </body>
+</html>
