@@ -66,7 +66,7 @@
         }
 
       } else {
-        $json = array("status" => "error", "status_code" => 0, "msg" => "Username and/or password not provided.", "error_msg" => "User credentials were not posted as desired.");
+        $json = array("status" => "error", "status_code" => 0, "msg" => "Username and (or) password not provided.", "error_msg" => "User credentials were not posted as desired.");
         echo json_encode($json);
         //exit since no user credentials were posted
         exit(0);    //exit without errors

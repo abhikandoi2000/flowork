@@ -2,8 +2,14 @@
   /*
    * ajax / view / todos.php
    * responds with users' todos in json format
-   * 
    *
+   * possible properties of json response
+   * status [string]
+   * status_code [int]
+   * error_msg [string]
+   * msg [string]
+   * todos [array]
+   * count [int]
   */
 
   //try starting the session
