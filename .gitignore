@@ -1,1 +1,5 @@
+#php config file
 /config/config.php
+
+#sass cache files
+.sass-cache/
