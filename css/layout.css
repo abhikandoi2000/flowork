@@ -1,11 +1,17 @@
-/* navbar login form */
+/* alert-box */
 /* line 2, ../sass/layout.scss */
+.alert-box {
+  display: none;
+}
+
+/* navbar login form */
+/* line 7, ../sass/layout.scss */
 section.top-bar-section.user, section.top-bar-section.guest {
   display: none;
 }
 
 /* close button */
-/* line 7, ../sass/layout.scss */
+/* line 12, ../sass/layout.scss */
 a.close {
   color: gray;
   float: right;
@@ -15,7 +21,7 @@ a.close {
 }
 
 /* form-container */
-/* line 16, ../sass/layout.scss */
+/* line 21, ../sass/layout.scss */
 div.form-container {
   display: none;
   background: rgba(0, 0, 0, 0.5);
@@ -28,7 +34,7 @@ div.form-container {
 }
 
 /* signup-form */
-/* line 28, ../sass/layout.scss */
+/* line 33, ../sass/layout.scss */
 div.signup-form {
   /*width: 768px;*/
   background: white;

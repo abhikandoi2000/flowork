@@ -1,3 +1,31 @@
+//AlertBox object definition - control the alert-box
+function AlertBox(selector) {
+  this.box = $(selector);
+  this.showalert = function(html, alertclass) {
+    var alertSpan = $(selector + ' .alert');
+    if(alertclass) {
+      this.box.removeAttr('class');
+      this.box.addClass('alert-box');
+      this.box.addClass(alertclass);
+    } else {
+      this.box.removeAttr('class');
+      this.box.addClass('alert-box');
+    }
+    $(selector + ' .alert').html(html);
+    //this.box.show();
+    this.box.slideDown(1000);
+    setTimeout(function(box) {
+          box.slideUp(800);
+        }, 2000, this.box);
+  }
+  this.close = function() {
+    this.box.slideUp();
+    //this.box.hide();
+  }
+}
+
+alertBox = new AlertBox('#alert-box-main');
+
 //todo object definition
 function Todo (todo, id, status) {
   this.todo = todo;
@@ -174,11 +202,10 @@ var signUp = function(signUpData) {
         console.log(responseJSON.error_msg);
         returnVal = false;
       }
-
-      //just in case the request fails
-      return returnVal;
     }
   });
+
+  return returnVal;
 }
 
 
@@ -194,16 +221,14 @@ $(document).ready(function(){
   //check if user if logged in
   var loggedin = checkLogin();
   if(loggedin) {
+    alertBox.showalert('Welcome back user.');
     //update status
-    console.log(STATUS);
     STATUS.loggedin();
-    console.log(STATUS);
     updateNavbar(STATUS);
 
     //init(status);
     //populateTodos();
   } else {
-
     STATUS.loggedout();
     updateNavbar(STATUS);
     $('section.top-bar-section.guest').show();
@@ -222,9 +247,11 @@ $(document).ready(function(){
     var signedup = signUp(signUpData);
 
     if(signedup) {
-
+      $('div.form-container.signup').hide();
+      alertBox.showalert('Congratulations, your account has been created and you may login.', 'success');
     } else {
-
+      $('div.form-container.signup').hide();
+      alertBox.showalert('O snap, some error occured while trying to create a brand new account for you. Try later.', 'alert');
     }
   });
 
@@ -236,8 +263,9 @@ $(document).ready(function(){
     if(loggedout) {
       STATUS.loggedout();
       updateNavbar(STATUS);
+      alertBox.showalert('See you soon again.');
     } else {
-
+      alertBox.showalert('Crap, a new kind of error occured while trying to logout, try deleting your cookies.', 'alert');
     }
   });
 
@@ -252,13 +280,11 @@ $(document).ready(function(){
 
       var loggedin = login(loginData);
       if(loggedin) {
-        console.log('loggedin successfully');
-        console.log(STATUS);
+        alertBox.showalert('Welcome User, have a wonderful day.', 'success');
         STATUS.loggedin();
-        console.log(STATUS);
         updateNavbar(STATUS);
       } else {
-        console.log('Login failed.');
+       alertBox.showalert('Login failed. Try again.', 'alert'); 
       }
     } else {
       //already logged in
