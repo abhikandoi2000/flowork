@@ -1,6 +1,6 @@
 /* navbar login form */
 /* line 2, ../sass/layout.scss */
-ul.right {
+section.top-bar-section.user, section.top-bar-section.guest {
   display: none;
 }
 

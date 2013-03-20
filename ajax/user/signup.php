@@ -15,7 +15,7 @@
   if( session_start() ) {
     if( isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true ) {
       //user already logged in
-      $json = array("status" => "loggedin", "status_code" => 1, "msg" => "You are already logged in, logout to signup for a different account.");
+      $json = array("status" => "error", "status_code" => 0, "msg" => "You are already logged in, logout to signup for a different account.", "error_msg" => "User already logged in, thus cannot signin.");
       echo json_encode($json);
     } else {
       //user not logged in, so sign him up for a brand new account

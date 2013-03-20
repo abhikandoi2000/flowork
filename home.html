@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+<!-- http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 
@@ -16,20 +17,197 @@
 
     <link href="css/normalize.css" media="screen, projector, print" rel="stylesheet" type="text/css" />
     <link href="css/app.css" media="screen, projector, print" rel="stylesheet" type="text/css" />
-
-    <script src="js/vendor/custom.modernizr.js"></script>
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/main.js"></script>
+    <link href="css/layout.css" media="screen, projector, print" rel="stylesheet" type="text/css" />
 
    </head>
    <body>
-      <a href="login.html">Login</a>
-      <br>
-      <a href="signup.html">Signup</a>
-      <br>
-      <a href="todo.html">Perform Tasks</a>
-      <br>
+      <div class="not-fixed">
+        <nav class="top-bar">
+          <ul class="title-area">
+            <!-- Title Area -->
+            <li class="name">
+              <h1>
+                <a href="/home.html">Flowork</a>
+              </h1>
+            </li>
+          </ul>
+          <section class="top-bar-section user">
+            <!-- User - Right Section - Navigation Bar -->
+            <ul class="right">
+              <li class="divider"></li>
+              <li>
+                <a href="#">Welcome, User</a>
+              </li>
+              <li class="divider"></li>
+              <!-- Logout -->
+              <li class="has-form">
+                <a href="#" class="button small success radius logout">Logout</a>
+              </li>
+            </ul>
+          </section>
+          <section class="top-bar-section guest">
+            <!-- Guest - Right Section - Navigation Bar -->
+            <ul class="right">
+              <li class="divider"></li>
+              <!-- Login -->
+              <li class="has-form login">
+                <div class="row">
+                  <div class="small-5 columns">
+                    <!--<label for="username-input" class="left">Username: </label>-->
+                    <input type="text" class="username login" placeholder="Username" />
+                  </div>
+                  <div class="small-5 columns">
+                    <!--<label for="password-input" class="left">Password: </label>-->
+                    <input type="password" class="password login" placeholder="Password" />
+                  </div>
+                  <div class="small-2 columns">
+                    <a href="#" class="button small radius login">Login</a>
+                  </div>
+                </div>
+              </li>
+              <li class="divider"></li>
+              <!-- Sign Up -->
+              <li class="has-form">
+                <a href="#" class="button small success radius signup-show">Sign Up</a>
+              </li>
+            </ul>
+          </section>
+        </nav>
+      </div>
 
+      <!-- <div class="row">
+        <a href="login.html" class="button radius">Login</a>
+        <a href="signup.html" class="button radius signup-show">Sign Up</a>
+        <a href="todo.html" class="button radius">Perform Tasks</a>
+      </div> -->
+
+      <div class="row">
+        <div data-alert class="alert-box success">
+          Simple Alert goes here.
+          <a href="#" class="close">&times;</a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+          <div class="panel">
+            <h2>Introduction</h2>
+            Welcome to flowork, a simple todo web app for those requiring simplicity and a clean interface.
+          </div>
+        </div>
+        <div class="large-6 columns">
+          <div class="panel callout">
+            <h2>Features</h2>
+            Welcome to flowork, a simple todo web app for those requiring simplicity and a clean interface.
+          </div>
+        </div>
+      </div>
+
+      <div class="row todo">
+        <div class="large-12 columns">
+          <h1>Todos</h1>
+        </div>
+        <div class="large-12 columns">
+          <a href="#">First todo of the day.</a>
+        </div>
+      </div>
+      <div class="row todo">
+        <div class="large-12 columns">
+          <a href="#">Second todo of the day.</a>
+        </div>
+      </div>
+
+      <div class="form-container signup">
+        <div class="signup-form radius">
+          <a href="#" class="close">Close</a>
+          <form>
+            <fieldset>
+              <legend>Sign Up</legend>
+
+              <div class="row">
+                <div class="large-6 columns">
+                  <div class="row collapse">
+                    <div class="small-9 columns">
+                      <input type="text" id="username" placeholder="Enter a username">
+                    </div>
+                    <div class="small-3 columns">
+                      <span class="postfix radius">Username</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="large-6 columns">
+                  <div class="row collapse">
+                    <div class="small-9 columns">
+                      <input type="password" id="password" placeholder="Enter a password">
+                    </div>
+                    <div class="small-3 columns">
+                      <span class="postfix radius">Password</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="large-6 columns">
+                  <div class="row collapse">
+                    <div class="small-9 columns">
+                      <input type="text" id="name" placeholder="Might I know your good name?">
+                    </div>
+                    <div class="small-3 columns">
+                      <span class="postfix radius">Name</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="large-6 columns">
+                  <div class="row collapse">
+                    <div class="small-9 columns">
+                      <input type="email" id="email" placeholder="me@example.com">
+                    </div>
+                    <div class="small-3 columns">
+                      <span class="postfix radius">Email</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="large-6 columns">
+                  <div class="row collapse">
+                    <div class="small-9 columns">
+                      <input type="text" id="mobile" placeholder="ex:- 9999999999">
+                    </div>
+                    <div class="small-3 columns">
+                      <span class="postfix radius">Mobile</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="small-8">
+                  <div class="row collapse">
+                    <div class="small-5 columns">
+                      <a href="#" class="button small signup">Sign Up</a>
+                    </div>
+                    <div class="small-5 columns">
+                      <a href="#" class="button small secondary">Reset</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </fieldset>
+          </form>
+        </div>
+      </div>
+
+
+      <!--<script src="js/vendor/custom.modernizr.js"></script>-->
+      <script src="js/vendor/jquery.js"></script>
+      <script src="js/config.js"></script>
+      <script src="js/main.js"></script>
+      <script src="js/layout.js"></script>
    </body>
 </html>
