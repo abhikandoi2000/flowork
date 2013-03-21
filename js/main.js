@@ -24,8 +24,6 @@ function AlertBox(selector) {
   }
 }
 
-alertBox = new AlertBox('#alert-box-main');
-
 //todo object definition
 function Todo (todo, id, status) {
   this.todo = todo;
@@ -52,13 +50,13 @@ function UserData(username, password, name, email, mobile) {
   this.mobile = mobile;
 };
 
-//user data object definition
+//login data object definition
 function LoginData(username, password) {
   this.username = username;
   this.password = password;
 };
 
-//status object
+//status object definition
 function Status(status) {
   this.status = status;
   this.loggedin = function() {
@@ -72,26 +70,18 @@ function Status(status) {
 //error object
 
 /*
- * global variables
+ * Global variables
  */
+
+//logged out initially
 STATUS = new Status('loggedout');
+
+//main alert box
+alertBox = new AlertBox('#alert-box-main');
 
 /*
  * Function definitions
  */
-
-var updateNavbar = function(status) {
-  console.log(status);
-  if(status.status == 'loggedin') {
-    $('section.top-bar-section.guest').hide();
-    $('section.top-bar-section.user').show();
-  } else if(status.status == 'loggedout') {
-    $('section.top-bar-section.user').hide();
-    $('section.top-bar-section.guest').show();
-  } else {
-    console.log('Unknow status: ' + status);
-  }
-}
 
 /* checkLogin - return boolean true if user already logged in otherwise false  */
 var checkLogin = function() {
@@ -224,35 +214,41 @@ $(document).ready(function(){
     alertBox.showalert('Welcome back user.');
     //update status
     STATUS.loggedin();
-    updateNavbar(STATUS);
+    updateInterface(STATUS);
 
     //init(status);
     //populateTodos();
   } else {
     STATUS.loggedout();
-    updateNavbar(STATUS);
-    $('section.top-bar-section.guest').show();
+    updateInterface(STATUS);
   }
 
   $('a.signup').click(function() {
     //perform user signup
 
-    username = $('#username').val();
-    password = $('#password').val();
-    name = $('#name').val();
-    email = $('#email').val();
-    mobile = $('#mobile').val();
-    var signUpData = new UserData(username, password, name, email, mobile);
+    //validating using parsley
+    var isValid = $('#signup-form').parsley('validate');
 
-    var signedup = signUp(signUpData);
+    if(isValid) {
+      //user data is valid
+      username = $('#username').val();
+      password = $('#password').val();
+      name = $('#name').val();
+      email = $('#email').val();
+      mobile = $('#mobile').val();
+      var signUpData = new UserData(username, password, name, email, mobile);
 
-    if(signedup) {
-      $('div.form-container.signup').hide();
-      alertBox.showalert('Congratulations, your account has been created and you may login.', 'success');
-    } else {
-      $('div.form-container.signup').hide();
-      alertBox.showalert('O snap, some error occured while trying to create a brand new account for you. Try later.', 'alert');
+      var signedup = signUp(signUpData);
+
+      if(signedup) {
+        $('div.form-container.signup').hide();
+        alertBox.showalert('Congratulations, your account has been created and you may login.', 'success');
+      } else {
+        $('div.form-container.signup').hide();
+        alertBox.showalert('O snap, some error occured while trying to create a brand new account for you. Try later.', 'alert');
+      }
     }
+
   });
 
   $('a.logout').click(function() {
@@ -262,7 +258,7 @@ $(document).ready(function(){
 
     if(loggedout) {
       STATUS.loggedout();
-      updateNavbar(STATUS);
+      updateInterface(STATUS);
       alertBox.showalert('See you soon again.');
     } else {
       alertBox.showalert('Crap, a new kind of error occured while trying to logout, try deleting your cookies.', 'alert');
@@ -282,14 +278,19 @@ $(document).ready(function(){
       if(loggedin) {
         alertBox.showalert('Welcome User, have a wonderful day.', 'success');
         STATUS.loggedin();
-        updateNavbar(STATUS);
+        updateInterface(STATUS);
       } else {
-       alertBox.showalert('Login failed. Try again.', 'alert'); 
+        alertBox.showalert('Login failed. Try again.', 'alert'); 
       }
     } else {
       //already logged in
       console.log('Already logged in.');
     }
+  });
+
+  //reset the form
+  $('a.reset').click(function() {
+    $(this).closest('form').find("input[type=text], input[type=email], input[type=password], textarea").val("");
   });
 
 });

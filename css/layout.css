@@ -1,27 +1,44 @@
+/* variables */
 /* alert-box */
-/* line 2, ../sass/layout.scss */
+/* line 6, ../sass/layout.scss */
 .alert-box {
   display: none;
 }
 
-/* navbar login form */
-/* line 7, ../sass/layout.scss */
-section.top-bar-section.user, section.top-bar-section.guest {
-  display: none;
+/* user and guest interface */
+/* line 11, ../sass/layout.scss */
+.user, .guest {
+  /*display: none;*/
+  transition: opacity 2s ease-out;
+  -webkit-transition: opacity 2s ease-out;
+  -moz-transition: opacity 2s ease-out;
+  -o-transition: opacity 2s ease-out;
+  display: block;
+  /* inactive panel */
+}
+/* line 20, ../sass/layout.scss */
+.user.inactive, .guest.inactive {
+  height: 0px;
+  overflow: hidden;
 }
 
 /* close button */
-/* line 12, ../sass/layout.scss */
+/* line 28, ../sass/layout.scss */
 a.close {
-  color: gray;
+  font-size: 13px;
+  color: white;
   float: right;
-  border-radius: 3px;
-  background: rgba(200, 200, 200, 0.7);
+  border-radius: 10px;
+  background: rgba(60, 60, 60, 0.9);
   padding: 3px 5px;
+  position: absolute;
+  top: -15px;
+  right: -25px;
+  z-index: 2;
 }
 
 /* form-container */
-/* line 21, ../sass/layout.scss */
+/* line 42, ../sass/layout.scss */
 div.form-container {
   display: none;
   background: rgba(0, 0, 0, 0.5);
@@ -34,14 +51,42 @@ div.form-container {
 }
 
 /* signup-form */
-/* line 33, ../sass/layout.scss */
+/* line 54, ../sass/layout.scss */
 div.signup-form {
   /*width: 768px;*/
   background: white;
-  border: 8px solid rgba(140, 140, 140, 0.5);
-  border-radius: 10px;
+  border: 10px solid rgba(40, 40, 40, 0.4);
+  border-radius: 20px;
   padding: 20px;
-  width: 100%;
+  width: 60%;
   top: 15%;
+  left: 20%;
   position: fixed;
+}
+
+/* parsley */
+/* line 67, ../sass/layout.scss */
+input.parsley-success, textarea.parsley-success {
+  color: #468847 !important;
+  background-color: #DFF0D8 !important;
+  border: 1px solid #D6E9C6 !important;
+}
+
+/* line 73, ../sass/layout.scss */
+input.parsley-error, textarea.parsley-error {
+  color: #B94A48 !important;
+  background-color: #F2DEDE !important;
+  border: 1px solid #EED3D7 !important;
+}
+
+/* line 79, ../sass/layout.scss */
+ul.parsley-error-list {
+  font-size: 13px;
+  margin: 2px;
+  list-style-type: none;
+}
+
+/* line 85, ../sass/layout.scss */
+ul.parsley-error-list li {
+  line-height: 13px;
 }
