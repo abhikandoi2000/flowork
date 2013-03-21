@@ -31,7 +31,7 @@
           $todos = array();
           $count = 0;
           while( $row = $statement->fetch(PDO::FETCH_ASSOC) ) {
-            $todo = array($row['id'], $row['todo'], $row['status']);
+            $todo = array("id" => $row['id'],"todo" => $row['todo'],"status" => $row['status']);
             array_push($todos, $todo);
             $count++;
           }

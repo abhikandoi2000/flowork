@@ -2,8 +2,8 @@
  * JavaScript controlling the layout of the webpage
  * 
  * function for updating the interface based on login status
- * control visibility of signup form
- * control the functioning of the close button
+ * //control visibility of signup form
+ * //control the functioning of the close button
  * 
  */
 
@@ -16,16 +16,16 @@ var updateInterface = function(status) {
   console.log(status);
   if(status.status == 'loggedin') {
 
-    //hide guest interface
+    //make the guest interface inactive
     $('.guest').addClass('inactive');
-    //show user interface
+    //make user interface active
     $('.user').removeClass('inactive');
 
   } else if(status.status == 'loggedout') {
 
-    //hide user interface
+    //make the user interface inactive
     $('.user').addClass('inactive')
-    //show guest interface
+    //make guest interface active
     $('.guest').removeClass('inactive');
 
   } else {
@@ -36,13 +36,12 @@ var updateInterface = function(status) {
 
 //when the document is ready
 $(document).ready(function() {
-  $('a.signup-show').click(function() {
-    $('div.form-container.signup').toggle();
-  });
-
+  /* used for my custom made modal box (quora inspired) */
+  // $('a.signup-show').click(function() {
+  //   $('div.form-container.signup').toggle();
+  // });
   //close button functioning
-  $('a.close').click(function() {
-    $(this).parent().parent().hide();
-  });
-
+  // $('a.close').click(function() {
+  //   $(this).parent().parent().hide();
+  // });
 });

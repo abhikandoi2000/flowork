@@ -199,11 +199,69 @@ var signUp = function(signUpData) {
 }
 
 
-/*  */
-var init = function(status) {
+/* initTodos - populate the todos for the user */
+var initTodos = function() {
+  var url = ROOT + 'ajax/view/todos.php';
+  var returnVal = false;
 
+  $.ajax({
+    type: "POST",
+    async: false,
+    url: url,
+    success: function(response) {
+      var responseJSON = JSON.parse(response);
+
+      if(responseJSON.status == 'success') {
+        //todo fetch was successful
+        var todoCount = responseJSON.count;
+
+        //loop through each todo
+        console.log(responseJSON);
+        for(index in responseJSON.todos) {
+          var item = responseJSON.todos[index];
+          var todo = new Todo(item.todo, item.id, item.status);
+          //console.log('Creating todo' + todo.todo);
+          createTodo(todo);
+        }
+
+        returnVal = true;
+      } else if(responseJSON.status == 'error') {
+        //todo fetching failed
+        console.log(responseJSON.msg);
+        console.log(responseJSON.error_msg);
+        returnVal = false;
+      }
+    }
+
+  });
+
+  return returnVal;
 }
 
+/* createTodo - creates a new todo */
+var createTodo = function(todo) {
+  var todoRow = $( "<div></div>", {
+    "class": "row"
+  });
+
+  var todoColumn = $( "<div></div>", {
+    "class": "large-12 columns"
+  });
+
+  var anchorClass = "todo " + todo.status;
+  var todoAnchor = $( "<a></a>", {
+    "class": anchorClass,
+    "id": todo.id,
+    "href": "#"
+  });
+  todoAnchor.html(todo.todo);
+
+  todoColumn.append( todoAnchor );
+  todoRow.append( todoColumn );
+
+  //append to the list of todos
+  $('.todos').prepend( todoRow );
+}
 
 //on document ready
 $(document).ready(function(){
@@ -216,8 +274,7 @@ $(document).ready(function(){
     STATUS.loggedin();
     updateInterface(STATUS);
 
-    //init(status);
-    //populateTodos();
+    initTodos();
   } else {
     STATUS.loggedout();
     updateInterface(STATUS);
@@ -241,10 +298,16 @@ $(document).ready(function(){
       var signedup = signUp(signUpData);
 
       if(signedup) {
-        $('div.form-container.signup').hide();
+        // hide my custom made modal box
+        //$('div.form-container.signup').hide();
+
+        $('#signupModal').foundation('reveal', 'close');
         alertBox.showalert('Congratulations, your account has been created and you may login.', 'success');
       } else {
-        $('div.form-container.signup').hide();
+        // hide my custom made modal box
+        //$('div.form-container.signup').hide();
+
+        $('#signupModal').foundation('reveal', 'close');
         alertBox.showalert('O snap, some error occured while trying to create a brand new account for you. Try later.', 'alert');
       }
     }
