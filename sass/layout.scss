@@ -24,6 +24,38 @@ $trans-func: ease-out;
   }
 }
 
+/* todo */
+.todos > .row {
+  margin: 10px 0px;
+  padding: 10px 4px;
+  &:hover {
+    background: rgba(150, 150, 150, 0.8);
+  }
+}
+
+/* action controls */
+a.action {
+  margin: 1px 4px;
+  width: 17px;
+  height: 17px;
+  text-indent: -9999px;
+  background-position: center;
+  float: right;
+  &.delete {
+    background-image: url('../images/icons/delete.png');
+  }
+  &.modify {
+    background-image: url('../images/icons/modify.png');
+  }
+  &.strike {
+    background-image: url('../images/icons/check.png');
+  }
+  &.delete:hover, &.modify:hover, &.strike:hover {
+    margin-top: 2px;
+    margin-bottom: 0px;
+  }
+}
+
 /* features list */
 ul.features {
   list-style-type: none;
