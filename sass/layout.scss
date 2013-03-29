@@ -2,6 +2,13 @@
 $trans-prop: opacity;
 $trans-func: ease-out;
 
+a {
+  color: rgb(50, 50, 50);
+  &:hover {
+    color: rgb(50, 50, 50);
+  }
+}
+
 /* alert-box */
 .alert-box {
   display: none;
@@ -26,10 +33,10 @@ $trans-func: ease-out;
 
 /* todo */
 .todos > .row {
-  margin: 10px 0px;
+  margin: 5px 0px;
   padding: 10px 4px;
   &:hover {
-    background: rgba(150, 150, 150, 0.8);
+    background: rgba(150, 150, 150, 0.5);
   }
 }
 

@@ -67,6 +67,13 @@ function Status(status) {
   }
 }
 
+//task object definition
+function Task(task, todo_id, todo) {
+  this.task = task;
+  this.todo_id = todo_id;
+  this.todo = todo;
+}
+
 //error object
 
 /*
@@ -201,6 +208,10 @@ var signUp = function(signUpData) {
 
 /* initTodos - populate the todos for the user */
 var initTodos = function() {
+
+  //flush the list of todos
+  $('.todos').html('');
+
   var url = ROOT + 'ajax/view/todos.php';
   var returnVal = false;
 
@@ -238,7 +249,7 @@ var initTodos = function() {
   return returnVal;
 }
 
-/* createTodo - creates a new todo */
+/* createTodo - creates a new todo on the screen */
 var createTodo = function(todo) {
   var todoRow = $( "<div></div>", {
     "class": "row"
@@ -256,11 +267,58 @@ var createTodo = function(todo) {
   });
   todoAnchor.html(todo.todo);
 
+  //strike, delete and modify anchors
+  var deleteAnchor = $( "<a></a>", {
+    "class": "action delete",
+    "href": "#"
+  });
+  var strikeAnchor = $( "<a></a>", {
+    "class": "action strike",
+    "href": "#"
+  });
+  var modifyAnchor = $( "<a></a>", {
+    "class": "action modify",
+    "href": "#"
+  });
+
+  //append the elements
   todoColumn.append( todoAnchor );
+  todoColumn.append(deleteAnchor);
+  todoColumn.append(strikeAnchor);
+  todoColumn.append(modifyAnchor);
   todoRow.append( todoColumn );
 
-  //append to the list of todos
+  //prepend to the list of todos
   $('.todos').prepend( todoRow );
+}
+
+/* addTodo - adds a new todo to the database */
+var performTask = function(task) {
+  var url = ROOT + 'ajax/edit/todo.php';
+  var returnVal = false;
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    async: false,
+    data: task,
+    success: function(response) {
+      console.log(response);
+      var responseJSON = JSON.parse(response);
+      if(responseJSON.status == 'done') {
+        //task performed successfully
+        console.log(responseJSON.msg);
+        returnVal = true;
+      } else if(responseJSON.status == 'error') {
+        //error occured while performing task
+        console.log(responseJSON.msg);
+        console.log(responseJSON.error_msg);
+        returnVal = false;
+      }
+    }
+  });
+
+  return returnVal;
 }
 
 //on document ready
@@ -343,7 +401,7 @@ $(document).ready(function(){
         STATUS.loggedin();
         updateInterface(STATUS);
       } else {
-        alertBox.showalert('Login failed. Try again.', 'alert'); 
+        alertBox.showalert('Login failed. Try again.', 'alert');
       }
     } else {
       //already logged in
@@ -354,6 +412,31 @@ $(document).ready(function(){
   //reset the form
   $('a.reset').click(function() {
     $(this).closest('form').find("input[type=text], input[type=email], input[type=password], textarea").val("");
+  });
+
+  //new todo
+  $('a.new').click(function() {
+    var newtodo = $(this).closest('.todo').val();
+    var task = new Task('new', null, newtodo);
+    //try perform the task
+    var taskPerformed = performTask(task);
+
+    if(taskPerformed) {
+      //hide the new todo modal
+      $('#newtodoModal').foundation('reveal', 'close');
+      //show success alert
+      alertBox.showalert('Todo added successfully, hope you will do it in time.', 'success');
+
+      //empty the todo list
+      $('.todos').html('Wait, loading the updated list of todos.');
+      //refresh the todo list
+      initTodos();
+    } else {
+      //hide the new todo modal
+      $('#newtodoModal').foundation('reveal', 'close');
+      //show the error
+      alertBox.showalert('Some kind of weird error occured while trying to add the todo, try again.', 'error');
+    }
   });
 
 });
