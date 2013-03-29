@@ -202,7 +202,8 @@
                 <div class="large-12 columns">
                   <div class="row collapse">
                     <div class="small-9 columns">
-                      <input type="text" id="todo" value="" data-required="true" data-trigger="change" />
+                      <input type="hidden" value="" name="id" class="todo-id" />
+                      <input type="text" class="todo" value="" data-required="true" data-trigger="change" />
                     </div>
                     <div class="small-3 columns">
                       <span class="postfix radius">Todo</span>
@@ -215,7 +216,7 @@
                 <div class="large-12 columns">
                   <div class="row collapse">
                     <div class="small-5 columns">
-                      <a href="#" class="button small new">Modify</a>
+                      <a href="#" class="button small modify-todo">Modify</a>
                     </div>
                     <div class="small-5 columns">
                       <a href="#" class="button small secondary reset">Reset</a>
