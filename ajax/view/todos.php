@@ -32,8 +32,10 @@
           $count = 0;
           while( $row = $statement->fetch(PDO::FETCH_ASSOC) ) {
             $todo = array("id" => $row['id'],"todo" => $row['todo'],"status" => $row['status']);
-            array_push($todos, $todo);
-            $count++;
+            if($todo["status"] != "done") {
+              array_push($todos, $todo);
+              $count++;
+            }
           }
           $json = array("status" => "success", "status_code" => 1, "msg" => "Take a look at your todos below.", "todos" => $todos, "count" => $count);
           echo json_encode($json);

@@ -40,6 +40,10 @@ a {
   }
 }
 
+.todos .todo.striked {
+  text-decoration: line-through;
+}
+
 /* action controls */
 a.action {
   margin: 1px 4px;
@@ -55,6 +59,9 @@ a.action {
     background-image: url('../images/icons/modify.png');
   }
   &.strike {
+    background-image: url('../images/icons/check.png');
+  }
+  &.unstrike {
     background-image: url('../images/icons/check.png');
   }
   &.delete:hover, &.modify:hover, &.strike:hover {

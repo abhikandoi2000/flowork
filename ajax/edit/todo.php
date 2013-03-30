@@ -79,7 +79,6 @@
             } elseif($task == 'done') {
               /*$statement = $db->prepare('DELETE FROM todos WHERE id = :todo_id');
               $statement->bindParam(':todo_id', $todo_id);*/
-              //do not display tasks with status='done'
               $statement = $db->prepare('UPDATE todos set status = :status WHERE id = :todo_id');
               $status = 'done';
               $statement->bindParam(':status', $status);

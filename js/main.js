@@ -16,7 +16,7 @@ function AlertBox(selector) {
     this.box.slideDown(1000);
     setTimeout(function(box) {
           box.slideUp(800);
-        }, 2000, this.box);
+        }, 3000, this.box);
   }
   this.close = function() {
     this.box.slideUp();
@@ -235,6 +235,9 @@ var initTodos = function() {
           createTodo(todo);
         }
 
+        //attach actions such as modify, delete and strike
+        attachActions();
+
         returnVal = true;
       } else if(responseJSON.status == 'error') {
         //todo fetching failed
@@ -295,6 +298,7 @@ var createTodo = function(todo) {
 
 /* addTodo - adds a new todo to the database */
 var performTask = function(task) {
+  console.log(task);
   var url = ROOT + 'ajax/edit/todo.php';
   var returnVal = false;
 
@@ -320,6 +324,99 @@ var performTask = function(task) {
   });
 
   return returnVal;
+}
+
+//attach actions such as modify, delete and strike
+var attachActions = function() {
+  
+  /*
+   * Modify a todo
+   * on clicking the modify anchor for a todo, the modify todo modal box shows up
+   * to keep track of the todo being modified we attach its id and update the value of the input field on the modal box
+   * further clicking the modify button, utilizes this attached detail to modify the detail
+   */
+
+  //modify the modify todo modal according to the todo being modified
+  $('.modify').click(function() {
+    var todoAnchor = $(this).siblings('.todo');
+    var id = todoAnchor.attr('id');
+    var todo = todoAnchor.html();
+    $('#modifytodoModal .todo').val(todo);
+    $('#modifytodoModal .todo-id').val(id);
+    console.log("ID:" + id);
+    console.log("Todo:" + todo);
+  });
+
+  //modify a todo
+  $('.modify-todo').click(function() {
+    var id = $('#modifytodoModal .todo-id').val();
+    var todo = $('#modifytodoModal .todo').val();
+    var task = new Task('modify', id, todo);
+    var taskPerformed = performTask(task);
+
+    if(taskPerformed) {
+      //hide the new todo modal
+      $('#modifytodoModal').foundation('reveal', 'close');
+      //show success alert
+      alertBox.showalert('Todo modified successfully, may the force be with you.', 'success');
+
+      //empty the todo list
+      $('.todos').html('Wait, loading the updated list of todos.');
+      //refresh the todo list
+      initTodos();
+    } else {
+      //hide the new todo modal
+      $('#modifytodoModal').foundation('reveal', 'close');
+      //show the error
+      alertBox.showalert('Some kind of weird error occured while trying to modify that todo, try again.', 'error');
+    }
+  });
+
+  //delete a todo
+  $('.delete').click(function() {
+    var todoAnchor = $(this).siblings('.todo');
+    var id = todoAnchor.attr('id');
+    var todo = todoAnchor.html();
+    var task = new Task('done', id, todo);
+    console.log('performing task');
+    console.log(task);
+    var taskPerformed = performTask(task);
+
+    if(taskPerformed) {
+      alertBox.showalert('Todo deleted successfully, well done user.', 'success');
+
+      //empty the todo list
+      $('.todos').html('Wait, loading the updated list of todos.');
+      //refresh the todo list
+      initTodos();
+    } else {
+      //show the error
+      alertBox.showalert('Some kind of weird error occured while trying to delete that todo, try again.', 'error');
+    }
+  });
+
+  //strike a todo
+  $('.strike').click(function() {
+    var todoAnchor = $(this).siblings('.todo');
+    var id = todoAnchor.attr('id');
+    var todo = todoAnchor.html();
+    var task = new Task('strike', id, todo);
+    console.log('performing task');
+    console.log(task);
+    var taskPerformed = performTask(task);
+
+    if(taskPerformed) {
+      //strike the todo
+      todoAnchor.addClass('striked');
+
+      $(this).removeClass('strike');
+      $(this).addClass('unstrike');
+    } else {
+      //show the error
+      alertBox.showalert('Some kind of weird error occured while trying to delete that todo, try again.', 'error');
+    }
+  });
+
 }
 
 //on document ready
@@ -401,6 +498,9 @@ $(document).ready(function(){
         alertBox.showalert('Welcome User, have a wonderful day.', 'success');
         STATUS.loggedin();
         updateInterface(STATUS);
+
+        //populate todos
+        initTodos();
       } else {
         alertBox.showalert('Login failed. Try again.', 'alert');
       }
@@ -413,11 +513,11 @@ $(document).ready(function(){
   //reset the form
   $('a.reset').click(function() {
     $(this).closest('form').find("input[type=text], input[type=email], input[type=password], textarea").val("");
-  });
+  });  
 
   //new todo
   $('a.new').click(function() {
-    var newtodo = $(this).closest('.todo').val();
+    var newtodo = $('#newtodoModal .todo').val();
     var task = new Task('new', null, newtodo);
     //try perform the task
     var taskPerformed = performTask(task);
@@ -425,6 +525,8 @@ $(document).ready(function(){
     if(taskPerformed) {
       //hide the new todo modal
       $('#newtodoModal').foundation('reveal', 'close');
+      //
+      $('#newtodoModal .todo').val('');
       //show success alert
       alertBox.showalert('Todo added successfully, hope you will do it in time.', 'success');
 
@@ -437,47 +539,6 @@ $(document).ready(function(){
       $('#newtodoModal').foundation('reveal', 'close');
       //show the error
       alertBox.showalert('Some kind of weird error occured while trying to add the todo, try again.', 'error');
-    }
-  });
-
-  /*
-   * Modify a todo
-   * on clicking the modify anchor for a todo, the modify todo modal box shows up
-   * to keep track of the todo being modified we attach its id and update the value of the input field on the modal box
-   * further clicking the modify button, utilizes this attached detail to modify the detail
-   */
-
-  //modify the modify todo modal according to the todo being modified
-  $('.modify').click(function() {
-    var todoAnchor = $(this).siblings('.todo');
-    var id = todoAnchor.attr('id');
-    var todo = todoAnchor.html();
-    $('#modifytodoModal .todo').val(todo);
-    $('#modifytodoModal .todo-id').val(id);
-  });
-
-  //modify a todo
-  $('.modify-todo').click(function() {
-    var id = $('#modifytodoModal .todo-id').val();
-    var todo = $('#modifytodoModal .todo').val();
-    var task = new Task('modify', id, todo);
-    var taskPerformed = performTask(task);
-
-    if(taskPerformed) {
-      //hide the new todo modal
-      $('#modifytodoModal').foundation('reveal', 'close');
-      //show success alert
-      alertBox.showalert('Todo modified successfully, may the force be with you.', 'success');
-
-      //empty the todo list
-      $('.todos').html('Wait, loading the updated list of todos.');
-      //refresh the todo list
-      initTodos();
-    } else {
-      //hide the new todo modal
-      $('#modifytodoModal').foundation('reveal', 'close');
-      //show the error
-      alertBox.showalert('Some kind of weird error occured while trying to modify that todo, try again.', 'error');
     }
   });
 
