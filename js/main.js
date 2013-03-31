@@ -254,6 +254,10 @@ var initTodos = function() {
 
 /* createTodo - creates a new todo on the screen */
 var createTodo = function(todo) {
+  //whether todo is strike or not, and appropriate class for the strike anchor
+  var isStriked = todo.status == 'striked' ? true : false;
+  var strikeAnchorClass = isStriked ? 'unstrike' : 'strike' ;
+
   var todoRow = $( "<div></div>", {
     "class": "row"
   });
@@ -276,7 +280,7 @@ var createTodo = function(todo) {
     "href": "#"
   });
   var strikeAnchor = $( "<a></a>", {
-    "class": "action strike",
+    "class": "action " + strikeAnchorClass,
     "href": "#"
   });
   var modifyAnchor = $( "<a></a>", {
@@ -324,6 +328,58 @@ var performTask = function(task) {
   });
 
   return returnVal;
+}
+
+//strike function
+var strike = function() {
+  var todoAnchor = $(this).siblings('.todo');
+    var id = todoAnchor.attr('id');
+    var todo = todoAnchor.html();
+    var task = new Task('strike', id, todo);
+    console.log('performing task');
+    var taskPerformed = performTask(task);
+
+    if(taskPerformed) {
+      //unbind the strike functionality
+      $(this).unbind('click');
+      //bind the unstrike functionality
+      $(this).bind('click', unstrike);
+
+      //strike the todo
+      todoAnchor.addClass('striked');
+      //update class for strike/unstrike anchor
+      $(this).removeClass('strike');
+      $(this).addClass('unstrike');
+    } else {
+      //show the error
+      alertBox.showalert('Some kind of weird error occured while trying to strike that todo at the server side, try again.', 'error');
+    }
+}
+
+//unstrike
+var unstrike = function() {
+  var todoAnchor = $(this).siblings('.todo');
+  var id = todoAnchor.attr('id');
+  var todo = todoAnchor.html();
+  var task = new Task('unstrike', id, todo);
+  console.log('performing task');
+  var taskPerformed = performTask(task);
+
+  if(taskPerformed) {
+    //unbind the unstrike functionality
+    $(this).unbind('click');
+    //bind the strike functionality
+    $(this).bind('click', strike);
+
+    //unstrike the todo
+    todoAnchor.removeClass('striked');
+    //update class for strike/unstrike anchor
+    $(this).removeClass('unstrike');
+    $(this).addClass('strike');
+  } else {
+    //show the error
+    alertBox.showalert('Some kind of weird error occured while trying to unstrike that todo at the server side, try again.', 'error');
+  }
 }
 
 //attach actions such as modify, delete and strike
@@ -379,7 +435,6 @@ var attachActions = function() {
     var todo = todoAnchor.html();
     var task = new Task('done', id, todo);
     console.log('performing task');
-    console.log(task);
     var taskPerformed = performTask(task);
 
     if(taskPerformed) {
@@ -396,26 +451,10 @@ var attachActions = function() {
   });
 
   //strike a todo
-  $('.strike').click(function() {
-    var todoAnchor = $(this).siblings('.todo');
-    var id = todoAnchor.attr('id');
-    var todo = todoAnchor.html();
-    var task = new Task('strike', id, todo);
-    console.log('performing task');
-    console.log(task);
-    var taskPerformed = performTask(task);
+  $('.strike').bind('click', strike);
 
-    if(taskPerformed) {
-      //strike the todo
-      todoAnchor.addClass('striked');
-
-      $(this).removeClass('strike');
-      $(this).addClass('unstrike');
-    } else {
-      //show the error
-      alertBox.showalert('Some kind of weird error occured while trying to delete that todo, try again.', 'error');
-    }
-  });
+  //unstrike
+  $('.unstrike').bind('click', unstrike);
 
 }
 

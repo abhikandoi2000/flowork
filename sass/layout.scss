@@ -62,6 +62,7 @@ a.action {
     background-image: url('../images/icons/check.png');
   }
   &.unstrike {
+    /* look for an image for unstrike */
     background-image: url('../images/icons/check.png');
   }
   &.delete:hover, &.modify:hover, &.strike:hover {

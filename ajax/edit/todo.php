@@ -21,7 +21,7 @@
         require("../../config/config.php");
 
         //obtain todo task and username
-        $task = $_POST['task'];   //new || modify || strike || done
+        $task = $_POST['task'];   //new || modify || strike  || unstrike || done
         $todo_id = $_POST['todo_id'];
         $todo = $_POST['todo'];
         $username = $_SESSION['username'];
@@ -70,6 +70,11 @@
             if($task == 'strike') {
               $statement = $db->prepare('UPDATE todos set status = :status WHERE id = :todo_id');
               $status = 'striked';
+              $statement->bindParam(':status', $status);
+              $statement->bindParam(':todo_id', $todo_id);
+            } elseif($task == 'unstrike') {
+              $statement = $db->prepare('UPDATE todos set status = :status WHERE id = :todo_id');
+              $status = 'open';
               $statement->bindParam(':status', $status);
               $statement->bindParam(':todo_id', $todo_id);
             } elseif($task == 'modify') {

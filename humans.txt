@@ -1,8 +1,19 @@
-/* Foundation was made by ZURB, an interaction design and design strategy firm in Campbell, CA */
-/* zurb.com */
+/* INSPIRATION */
+
+  Flowork was made by Abhishek Kandoi, as a simple todo web app inspired by workflowy
+
+/* CREDITS */
+  Author: Abhishek Kandoi
+  Contact: abhikandoi2000 [at] gmail.com
+  Twitter: @kandoiabhi
+  From: New Delhi, India
+  With: Love
+
 /* humanstxt.org */
 
 /* SITE */
-  Standards: HTML5, CSS3
-  Components: jQuery, Orbit, Reveal
-  Software: Coda, Textmate, Git
+  Last update:2013/03/30
+  Language: English
+  Standards: HTML5, CSS3, PHP, JavaScript
+  Components: jQuery, Foundation, Chart.js, parsley.js, normalize.css, jQuery, modernizr.js
+  Software: Compass, Vim, Git, Sublime Text
