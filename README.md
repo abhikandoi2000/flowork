@@ -50,5 +50,5 @@ And you are ready to go. Navigate to localhost/flowork/home.html using your favo
 contact me
 ==========
 
-Feel free to contact me at abhikandoi2000@gmail.com
+Feel free to contact me: Tweet me [@kandoiabhi](//twitter.com/kandoiabhi "Tweet @kandoiabhi") or mail me at abhikandoi2000@gmail.com
 

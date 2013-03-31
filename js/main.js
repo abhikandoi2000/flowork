@@ -450,10 +450,10 @@ var attachActions = function() {
     }
   });
 
-  //strike a todo
+  //bind strike functionality to all open todos
   $('.strike').bind('click', strike);
 
-  //unstrike
+  //bind unstrike functionality to all striked todos
   $('.unstrike').bind('click', unstrike);
 
 }
