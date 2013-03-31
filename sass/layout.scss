@@ -118,6 +118,34 @@ div.signup-form {
   position: fixed;
 }
 
+/* statistics chart */
+/*#todoStats {
+  width: 2*(40%);
+  height: 40%;
+}*/
+
+.color {
+  text-align: center;
+  &.open {
+    background-color: #69D2E7;
+  }
+  &.striked {
+    background-color: #E0E4CC;
+  }
+  &.done {
+    background-color: #F7464A;
+  }
+  /* chart label */
+  .chartlabel {
+    line-height: 1.4;
+    color: #565656;
+    font-weight: 300;
+    margin-top: 0.2em;
+    margin-bottom: 0.5em;
+  }
+}
+
+
 /* parsley */
 input.parsley-success, textarea.parsley-success {
   color: #468847 !important;

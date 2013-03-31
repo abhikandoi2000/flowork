@@ -42,7 +42,7 @@
               </li>
               <li class="divider"></li>
               <li>
-                <a href="#">Statistics</a>
+                <a href="#" data-reveal-id="statisticsModal" class="statistics">Statistics</a>
               </li>
               <li class="divider"></li>
             </ul>
@@ -156,7 +156,25 @@
       <!-- statistics modal -->
       <div id="statisticsModal" class="reveal-modal">
         <h3>Statistics</h3>
-        <canvas id="todoStats" width="400" height="400"></canvas>
+        <div class="row">
+          <div class="large-6 columns">
+            <canvas id="todoStats" width="300" height="300"></canvas>
+          </div>
+          <div class="large-6 columns">
+            <div class="row collapse">
+              <h3>Chart coloring</h3>
+              <div class="row">
+                <div class="small-12 color open"><h4 class="chartlabel">Open</h4></div>
+              </div>
+              <div class="row">
+                <div class="small-12 color striked"><h4 class="chartlabel">Striked</h4></div>
+              </div>
+              <div class="row">
+                <div class="small-12 color done"><h4 class="chartlabel">Done</h4></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <a class="close-reveal-modal">&#215;</a>
       </div>
 
@@ -434,6 +452,7 @@
       <script src="js/config.js"></script>
       <script src="js/main.js"></script>
       <script src="js/layout.js"></script>
+      <script src="js/statistics.js"></script>
       <script>
         $(document).foundation();
       </script>

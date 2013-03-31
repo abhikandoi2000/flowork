@@ -131,47 +131,78 @@ div.signup-form {
   position: fixed;
 }
 
+/* statistics chart */
+/*#todoStats {
+  width: 2*(40%);
+  height: 40%;
+}*/
+/* line 127, ../sass/layout.scss */
+.color {
+  text-align: center;
+  /* chart label */
+}
+/* line 129, ../sass/layout.scss */
+.color.open {
+  background-color: #69D2E7;
+}
+/* line 132, ../sass/layout.scss */
+.color.striked {
+  background-color: #E0E4CC;
+}
+/* line 135, ../sass/layout.scss */
+.color.done {
+  background-color: #F7464A;
+}
+/* line 139, ../sass/layout.scss */
+.color .chartlabel {
+  line-height: 1.4;
+  color: #565656;
+  font-weight: 300;
+  margin-top: 0.2em;
+  margin-bottom: 0.5em;
+}
+
 /* parsley */
-/* line 122, ../sass/layout.scss */
+/* line 150, ../sass/layout.scss */
 input.parsley-success, textarea.parsley-success {
   color: #468847 !important;
   background-color: #DFF0D8 !important;
   border: 1px solid #D6E9C6 !important;
 }
 
-/* line 128, ../sass/layout.scss */
+/* line 156, ../sass/layout.scss */
 input.parsley-error, textarea.parsley-error {
   color: #B94A48 !important;
   background-color: #F2DEDE !important;
   border: 1px solid #EED3D7 !important;
 }
 
-/* line 134, ../sass/layout.scss */
+/* line 162, ../sass/layout.scss */
 ul.parsley-error-list {
   font-size: 13px;
   margin: 2px;
   list-style-type: none;
 }
 
-/* line 140, ../sass/layout.scss */
+/* line 168, ../sass/layout.scss */
 ul.parsley-error-list li {
   line-height: 13px;
 }
 
 /* copyright section, used from foundation docs */
-/* line 145, ../sass/layout.scss */
+/* line 173, ../sass/layout.scss */
 #copyright {
   background: #3f3f3f;
   color: #fff;
   padding: 11px 0;
   margin-top: 30px;
 }
-/* line 150, ../sass/layout.scss */
+/* line 178, ../sass/layout.scss */
 #copyright a {
   color: #fff;
   font-size: 14px;
 }
-/* line 154, ../sass/layout.scss */
+/* line 182, ../sass/layout.scss */
 #copyright p, #copyright ul {
   margin-bottom: 0;
 }
