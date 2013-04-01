@@ -2,6 +2,7 @@ flowork
 ==========
 
 a simple todo web app for those requiring simplicity and a clean interface
+Preview: faceinbook.co.nr/flowork/home.html
 
 inspiration
 ==========
