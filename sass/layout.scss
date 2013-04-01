@@ -63,7 +63,7 @@ a.action {
   }
   &.unstrike {
     /* look for an image for unstrike */
-    background-image: url('../images/icons/check.png');
+    background-image: url('../images/icons/undo.png');
   }
   &.delete:hover, &.modify:hover, &.strike:hover {
     margin-top: 2px;

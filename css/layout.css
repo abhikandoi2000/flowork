@@ -72,7 +72,7 @@ a.action.strike {
 /* line 64, ../sass/layout.scss */
 a.action.unstrike {
   /* look for an image for unstrike */
-  background-image: url("../images/icons/check.png");
+  background-image: url("../images/icons/undo.png");
 }
 /* line 68, ../sass/layout.scss */
 a.action.delete:hover, a.action.modify:hover, a.action.strike:hover {
