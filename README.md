@@ -20,7 +20,7 @@ install
 
 Clone this repository, make appropriate config files, setup the database and voilà you are ready to go.
 
-    git clone git://github.com/abhikandoi2000/flowork.git
+    git clone git@github.com:abhikandoi2000/flowork.git
     cd flowork
     cp config/config.php.example config/config.php
     nano config/config.php
